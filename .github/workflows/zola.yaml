@@ -1,0 +1,50 @@
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: true
+          submodules: true
+      - name: Setup Zola
+        uses: taiki-e/install-action@3ae7038495f79cd771208b38319ff728a8b24538 # v2.67.3
+        with:
+          tool: zola
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - run: zola build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  deploy:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
