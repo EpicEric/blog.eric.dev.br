@@ -124,7 +124,6 @@ html[data-theme="light"] .z-support.z-function {
 }
 html[data-theme="light"] .z-constant.z-language {
     color: #179299;
-    font-style: italic;
 }
 html[data-theme="light"] .z-variable.z-other.z-readwrite {
     color: #4c4f69;
@@ -134,7 +133,6 @@ html[data-theme="light"] .z-punctuation.z-definition.z-variable {
 }
 html[data-theme="light"] .z-punctuation.z-definition.z-comment {
     color: #7c7f93;
-    font-style: italic;
 }
 html[data-theme="light"] .z-punctuation.z-definition.z-string {
     color: #40a02b;
@@ -183,35 +181,27 @@ html[data-theme="light"] .z-punctuation.z-separator.z-key-value {
 }
 html[data-theme="light"] .z-entity.z-name.z-function {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-function-call.z-method {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-support.z-function.z-misc {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-entity.z-name.z-class {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-entity.z-other.z-inherited-class {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-function-call.z-constructor {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-entity.z-name.z-struct {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-entity.z-name.z-enum {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-variable.z-other.z-enummember {
     color: #179299;
@@ -221,11 +211,9 @@ html[data-theme="light"] .z-meta.z-property.z-object {
 }
 html[data-theme="light"] .z-entity.z-name.z-type {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-function.z-parameters {
     color: #e64553;
-    font-style: italic;
 }
 html[data-theme="light"] .z-support.z-function.z-builtin {
     color: #d20f39;
@@ -310,7 +298,6 @@ html[data-theme="light"] .z-variable.z-parameter.z-generic {
 }
 html[data-theme="light"] .z-punctuation.z-decorator.z-ts {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-constant.z-language.z-julia {
     color: #fe640b;
@@ -395,11 +382,9 @@ html[data-theme="light"] .z-constant.z-language.z-python {
 }
 html[data-theme="light"] .z-meta.z-indexed-name.z-python {
     color: #e64553;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-item-access.z-python {
     color: #e64553;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-function-call.z-r {
     color: #1e66f5;
@@ -409,11 +394,9 @@ html[data-theme="light"] .z-string.z-regexp.z-ts {
 }
 html[data-theme="light"] .z-meta.z-annotation.z-rust {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-attribute.z-rust {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-storage.z-modifier.z-rust {
     color: #8839ef;
@@ -426,19 +409,15 @@ html[data-theme="light"] .z-meta.z-generic.z-rust {
 }
 html[data-theme="light"] .z-support.z-macro.z-rust {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-comment.z-line.z-shebang {
     color: #ea76cb;
-    font-style: italic;
 }
 html[data-theme="light"] .z-comment.z-line.z-shebang {
     color: #ea76cb;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-shebang.z-shell {
     color: #ea76cb;
-    font-style: italic;
 }
 html[data-theme="light"] .z-markup.z-heading.z-typst {
     color: #d20f39;
@@ -493,7 +472,6 @@ html[data-theme="light"] .z-support.z-function.z-be {
 }
 html[data-theme="light"] .z-support.z-function.z-rust {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-variable.z-other.z-rust {
     color: #e64553;
@@ -503,7 +481,6 @@ html[data-theme="light"] .z-variable.z-other.z-rust {
 }
 html[data-theme="light"] .z-punctuation.z-definition.z-comment {
     color: #ea76cb;
-    font-style: italic;
 }
 html[data-theme="light"] .z-punctuation.z-section.z-interpolation {
     color: #d20f39;
@@ -525,7 +502,6 @@ html[data-theme="light"] .z-storage.z-type.z-rust {
 }
 html[data-theme="light"] .z-variable.z-other.z-readwrite {
     color: #fe640b;
-    font-style: italic;
 }
 html[data-theme="light"] .z-keyword.z-other.z-unit.z-user-defined {
     color: #fe640b;
@@ -661,7 +637,6 @@ html[data-theme="light"] .z-keyword.z-operator.z-expression.z-is {
 }
 html[data-theme="light"] .z-support.z-function.z-macro.z-julia {
     color: #179299;
-    font-style: italic;
 }
 html[data-theme="light"] .z-constant.z-other.z-symbol.z-julia {
     color: #e64553;
@@ -719,7 +694,6 @@ html[data-theme="light"] .z-meta.z-function-call.z-arguments.z-python {
 }
 html[data-theme="light"] .z-support.z-function.z-magic.z-python {
     color: #04a5e5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-keyword.z-control.z-flow.z-python {
     color: #8839ef;
@@ -735,7 +709,6 @@ html[data-theme="light"] .z-support.z-token.z-decorator.z-python {
 }
 html[data-theme="light"] .z-punctuation.z-definition.z-decorator.z-python {
     color: #fe640b;
-    font-style: italic;
 }
 html[data-theme="light"] .z-support.z-type.z-exception.z-python {
     color: #fe640b;
@@ -745,7 +718,6 @@ html[data-theme="light"] .z-support.z-function.z-builtin.z-python {
 }
 html[data-theme="light"] .z-storage.z-type.z-string.z-python {
     color: #40a02b;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-function-call.z-arguments.z-r {
     color: #4c4f69;
@@ -780,7 +752,6 @@ html[data-theme="light"] .z-meta.z-assertion.z-negative-look-ahead.z-regexp {
 }
 html[data-theme="light"] .z-punctuation.z-definition.z-attribute.z-rust {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-storage.z-type.z-module.z-rust {
     color: #8839ef;
@@ -808,14 +779,12 @@ html[data-theme="light"] .z-storage.z-type.z-type.z-rust {
 }
 html[data-theme="light"] .z-entity.z-name.z-impl.z-rust {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-entity.z-name.z-module.z-rust {
     color: #fe640b;
 }
 html[data-theme="light"] .z-entity.z-name.z-trait.z-rust {
     color: #df8e1d;
-    font-style: italic;
 }
 html[data-theme="light"] .z-storage.z-type.z-source.z-rust {
     color: #df8e1d;
@@ -825,11 +794,9 @@ html[data-theme="light"] .z-entity.z-name.z-union.z-rust {
 }
 html[data-theme="light"] .z-storage.z-modifier.z-lifetime.z-rust {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-entity.z-name.z-type.z-lifetime {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-function.z-call.z-rust {
     color: #1e66f5;
@@ -1088,14 +1055,12 @@ html[data-theme="light"] .z-entity.z-other.z-attribute-name.z-single.z-nix {
 }
 html[data-theme="light"] .z-variable.z-language.z-special.z-self.z-python {
     color: #d20f39;
-    font-style: italic;
 }
 html[data-theme="light"] .z-meta.z-function.z-decorator.z-identifier.z-python {
     color: #04a5e5;
 }
 html[data-theme="light"] .z-entity.z-name.z-function.z-decorator.z-python {
     color: #fe640b;
-    font-style: italic;
 }
 html[data-theme="light"]
     .z-constant.z-other.z-character-class.z-range.z-regexp {
@@ -1110,7 +1075,6 @@ html[data-theme="light"] .z-entity.z-name.z-type.z-numeric.z-rust {
 }
 html[data-theme="light"] .z-entity.z-name.z-function.z-macro.z-rust {
     color: #1e66f5;
-    font-style: italic;
 }
 html[data-theme="light"] .z-variable.z-other.z-metavariable.z-name.z-rust {
     color: #ea76cb;
@@ -1118,7 +1082,6 @@ html[data-theme="light"] .z-variable.z-other.z-metavariable.z-name.z-rust {
 html[data-theme="light"]
     .z-punctuation.z-definition.z-comment.z-shebang.z-shell {
     color: #ea76cb;
-    font-style: italic;
 }
 html[data-theme="light"]
     .z-punctuation.z-definition.z-evaluation.z-backticks.z-shell {
@@ -1154,5 +1117,4 @@ html[data-theme="light"] .z-entity.z-name.z-function.z-macro.z-rules.z-rust {
 html[data-theme="light"]
     .z-variable.z-parameter.z-function.z-language.z-special.z-self.z-python {
     color: #d20f39;
-    font-style: italic;
 }

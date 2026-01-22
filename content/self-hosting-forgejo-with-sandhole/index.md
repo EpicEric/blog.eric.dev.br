@@ -2,7 +2,7 @@
 title = "Self-hosting Forgejo with Sandhole"
 authors = ["Eric Rodrigues Pires"]
 description = "A guide on using Sandhole for fun and profit, and getting a local service exposed to the wide web."
-date = 2026-01-21
+date = 2026-01-22
 # updated = 2024-06-21
 taxonomies.tags = ["Sandhole", "self-hosting"]
 +++
@@ -27,7 +27,7 @@ Sometimes, you just want to host your services yourself. Maybe you're worried ab
 
 With the help of Docker/Podman, NixOS, or even K3s, getting your service started on a home server is easy enough &ndash; but what if you'd like to make it accessible outside of your network? Then you'd need a public IP, which your Internet provider is very unlikely to provide, and IPv6 still isn't as universal as it should be.
 
-Thankfully, you can get a cheap VPS with a public IP address pretty easily nowadays (from clouds such as Hetzner, or DigitalOcean, or Magalu Cloud if you're in Brazil like me), but then you're reliant on external storage and limited computing resources. If you want to combine a public IP with full control of your service, then [Sandhole](https://sandhole.com.br) might be just what you need.
+Thankfully, you can get a cheap VPS with a public IP address pretty easily nowadays (from clouds such as Hetzner, or DigitalOcean, or Magalu Cloud if you're in Brazil like me), but then you're reliant on external storage and limited computing resources. If you want to combine the best of both worlds &ndash; a public IP with full control of your service &ndash;, then [Sandhole](https://sandhole.com.br) might be just what you need.
 
 ![The Sandhole logo, with Ferris partially inside a sandhole and the name "Sandhole" written in cursive beside them.](./sandhole.png)
 
@@ -51,7 +51,7 @@ You'll need these in order to follow this guide (edit the fields with your info)
 
 While (1) and (2) are mandatory, you can kind of work around the other two. For example, (3) could very well be the same server as (2). But not using (4) is tricky &ndash; it requires using a service like [sslip.io](https://sslip.io), which involves a lot of technical details, which are outside of the scope of this simple guide.
 
-However, (2) and (4) don't have to be a server that you own! It could belong to an instance of Sandhole managed by someone else, like a friend that you trust.
+However, (2) and (4) don't have to be from a server that you own! It could belong to an instance of Sandhole managed by someone else, like a friend that you trust.
 
 For the purposes of demonstration, since our main domain will be <code><span x-text="getDomain()">sandhole.example</span></code>, let's run our self-hosted server under the subdomain <code>git.<span x-text="getDomain()">sandhole.example</span></code>.
 
@@ -112,7 +112,7 @@ I'll be using NixOS as an example, since that's my current fixation, but also fo
 
 </div>
 
-We're using our special domain here, but that doesn't stop us from accessing the instance at `localhost:3000`. You can temporarily set `serives.forgejo.settings.service.DISABLE_REGISTRATION` to _false_ in order to create the admin account, and that's all the configuration we'll be doing for now.
+We're using our special subdomain here, but that doesn't stop us from accessing the instance at `localhost:3000`. You can temporarily set `serives.forgejo.settings.service.DISABLE_REGISTRATION` to _false_ in order to create the admin account, and that's all the configuration we'll be doing for now.
 
 You'll also notice that we're choosing production ports for the user-facing endpoints: 443 for HTTPS, and 22 for SSH. That's where Sandhole will help us &ndash; even though nobody else can reach our server at the moment.
 
@@ -246,7 +246,7 @@ We'll use autossh on our Forgejo-running server to keep a persistent connection 
 
 For a Docker Compose alternative, you can use the `epiceric/sandhole-client` image, [as seen here](https://github.com/EpicEric/sandhole/blob/main/docker-compose-example/client/compose.yml).
 
-If the connection fails due to outbound SSH connections being blocked, try adding `-p 443` to the autossh arguments. Since we've configured `--connect-ssh-on-https-port` earlier, this will let us connect our SSH client via the HTTPS port!
+If the connection fails due to outbound SSH connections being blocked, try adding `-p 443` to the autossh arguments. Since we've configured `--connect-ssh-on-https-port` in Sandhole earlier, this will let us connect our SSH client via the HTTPS port!
 
 Now, when you access <code>https://git.<span x-text="getDomain()">sandhole.example</span></code>, your Forgejo instance should magically appear, with a TLS certificate and all!
 
@@ -278,6 +278,8 @@ Host git.sandhole.example
 </div>
 
 The important bit is `ProxyJump`. It tells SSH to proxy our connection to <code>git.<span x-text="getDomain()">sandhole.example</span></code> via the actual SSH server, <code><span x-text="getDomain()">sandhole.example</span></code>. This is normally used to reach real hosts inside a VPN, for example, but in our case, Sandhole uses some aliasing magic to forward connections to the appropriate service on the proxied virtual hosts.
+
+You'll have to instruct other users of your Forgejo instance to do the same, but once the `ProxyJump` is configured, it's a fire-and-forget setting.
 
 ## Next steps
 

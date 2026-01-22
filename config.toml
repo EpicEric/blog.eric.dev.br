@@ -1,17 +1,21 @@
-title = "Epic Eric's blog"
+title = "Epic Eric"
 base_url = "https://blog.eric.dev.br"
+description = "Blogging from Brazil."
 theme = "duckquill"
 compile_sass = true
 minify_html = true
 generate_feeds = true
 feed_filenames = ["rss.xml", "atom.xml"]
-build_search_index = true
 author = "Eric Rodrigues Pires"
 default_language = "en"
+taxonomies = [{name = "tags", feed = true}]
 
-[[taxonomies]]
-name = "tags"
-feed = true
+[languages.pt-BR]
+title = "Epic Eric"
+description = "Blogando do Brasil."
+generate_feeds = true
+feed_filenames = ["rss.xml", "atom.xml"]
+taxonomies = [{name = "tags", feed = true}]
 
 [markdown]
 external_links_target_blank = true
@@ -20,9 +24,10 @@ external_links_target_blank = true
 style = "class"
 light_theme = "catppuccin-latte"
 dark_theme = "catppuccin-macchiato"
+extra_grammars = ["grammars/duper.tmLanguage.json"]
 
-[search]
-index_format = "fuse_json"
+# [search]
+# index_format = "fuse_json"
 
 [extra]
 accent_color = "#611EC7"
