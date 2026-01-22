@@ -4,7 +4,7 @@ authors = ["Eric Rodrigues Pires"]
 description = "A guide on using Sandhole for fun and profit, and getting a local service exposed to the wide web."
 date = 2026-01-22
 # updated = 2024-06-21
-taxonomies.tags = ["Sandhole", "self-hosting"]
+taxonomies.tags = ["Rust", "Sandhole", "self-hosting"]
 +++
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>

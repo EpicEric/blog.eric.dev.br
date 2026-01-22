@@ -4,7 +4,7 @@ authors = ["Eric Rodrigues Pires"]
 description = "Um guia sobre como usar o Sandhole para qualquer fim, para expor um serviço à Internet."
 date = 2026-01-22
 # updated = 2024-06-21
-taxonomies.tags = ["Sandhole", "hospedagem"]
+taxonomies.tags = ["Rust", "Sandhole", "hospedagem"]
 +++
 
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
