@@ -29,7 +29,7 @@ Graças a Docker/Podman, NixOS, ou até mesmo K3s, subir um serviço em um servi
 
 Felizmente, você consegue comprar uma VPS barata com um endereço IP público com extrema facilidade nos dias de hoje (de provedores cloud como Hetzner ou DigitalOcean, ou Magalu Cloud se você estiver no Brasil como eu), mas você estará sujeito a armazenar seus dados externamente e limitado de recursos computacionais. Se você quiser combinar o melhor de dois mundos &ndash; um IP público com controle total sobre o seu serviço &ndash;, então o [Sandhole](https://sandhole.com.br) pode ser exatamente o que você precisa.
 
-![O logo do Sandhole, com Ferris aparecendo de um buraco de areia e o nome "Sandhole" escrito em letra cursiva ao lado.](../sandhole.png)
+![O logo do Sandhole, com Ferris aparecendo de um buraco de areia e o nome "Sandhole" escrito em letra cursiva ao lado.](./sandhole.png)
 
 Assim como ngrok ou Tailscale Funnel, Sandhole é um proxy reverso que expõe servidores atrás de CGNAT à Internet &ndash; conseguindo essa proeza através de funcionalidades do OpenSSH, como redirecionamento remoto (_remote forwarding_). A autenticação é tão simples quanto utilizar chaves SSH e o redirecionamento de portas funciona independentemente da topologia da sua rede; tudo que você precisa para usar uma instância do Sandhole é conseguir alcançá-la pela rede!
 
@@ -152,6 +152,7 @@ E aqui está nossa configuração do Docker Compose:
 <div x-data="{ html: '' }" x-init="html = $el.innerHTML.replaceAll('sandhole.example', '<span x-text=\'getDomain()\'>sandhole.example</span>').replaceAll('admin@your.email', '<span x-text=\'getEmail()\'>admin@your.email</span>')" x-html="html">
 
 ```yaml,name=compose.yaml
+  agnos:
     container_name: sandhole_agnos
     restart: unless-stopped
     ports:
