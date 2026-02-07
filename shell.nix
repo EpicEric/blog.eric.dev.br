@@ -4,6 +4,7 @@ let
 in
 pkgs.mkShell {
   packages = [
+    pkgs.rsync
     pkgs.zola
   ];
 }
