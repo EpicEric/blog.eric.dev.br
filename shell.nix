@@ -1,7 +1,8 @@
-let
-  sources = import ./npins;
-  pkgs = import sources.nixpkgs { };
-in
+{
+  sources ? import ./npins,
+  system ? builtins.currentSystem,
+  pkgs ? import sources.nixpkgs { inherit system; },
+}:
 pkgs.mkShell {
   packages = [
     pkgs.rsync

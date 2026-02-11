@@ -479,9 +479,6 @@ html[data-theme="light"] .z-variable.z-other.z-rust {
 html[data-theme="light"] .z-variable.z-other.z-rust {
     color: #4c4f69;
 }
-html[data-theme="light"] .z-punctuation.z-definition.z-comment {
-    color: #ea76cb;
-}
 html[data-theme="light"] .z-punctuation.z-section.z-interpolation {
     color: #d20f39;
 }

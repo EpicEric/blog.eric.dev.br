@@ -1,2 +1,3 @@
-.direnv/
-public/
+/.direnv/
+/public/
+/result
