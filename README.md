@@ -11,7 +11,5 @@ zola serve
 ## Build and deploy
 
 ```bash
-zola build
+nix-build
 ```
-
-SSG files are built to `public/`.

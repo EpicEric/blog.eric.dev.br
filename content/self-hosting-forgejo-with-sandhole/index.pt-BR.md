@@ -3,7 +3,6 @@ title = "Hospedando Forgejo com Sandhole"
 authors = ["Eric Rodrigues Pires"]
 description = "Um guia sobre como usar o Sandhole para qualquer fim, para expor um serviço à Internet."
 date = 2026-01-22
-# updated = 2024-06-21
 taxonomies.tags = ["Rust", "Sandhole", "hospedagem"]
 +++
 
