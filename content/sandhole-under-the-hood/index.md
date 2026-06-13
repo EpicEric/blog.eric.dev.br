@@ -1,7 +1,7 @@
 +++
 title = "Sandhole under the hood"
 authors = ["Eric Rodrigues Pires"]
-description = "A long investigation on how reverse port forwarding works in SSH; for fun at first, and then, fully embracing it with Sandhole."
+description = "A long investigation on how remote port forwarding works in SSH; for fun at first, and then, fully embracing it with Sandhole."
 date = 2026-03-24
 taxonomies.tags = ["Sandhole", "self-hosting"]
 +++
@@ -66,7 +66,7 @@ I was a bit on the fence, since ngrok is a paid service, and Cloudflare requires
 
 <figure>
 
-![A screenshot of Serveo's homepage, with the tagline 'Expose local servers to the internet; No installation, no signup' and a simple SSH reverse port forwarding command that it tells you to copy and paste into your terminal.](./serveo_webpage.png)
+![A screenshot of Serveo's homepage, with the tagline 'Expose local servers to the internet; No installation, no signup' and a simple SSH remote port forwarding command that it tells you to copy and paste into your terminal.](./serveo_webpage.png)
 
   <figcaption>How the Serveo webpage looks like when it's up. © Trevor Dixon</figcaption>
 </figure>
@@ -177,7 +177,7 @@ It was easy enough to stumble upon [sish](https://github.com/antoniomika/sish) t
 
 ![Diagram entitled 'sish public', showing that Eric's machine with a service exposed on localhost port 3000 connects to sish via the command (ssh -R eric:80:localhost:3000 tuns.sh). This creates a bi-directional tunnel and exposes https://eric.tuns.sh to the Internet, which Tony accesses from a separate device.](./sish_public.png)
 
-  <figcaption>Even the command is the same: a simple SSH reverse port forwarding! © Antonio Mika</figcaption>
+  <figcaption>Even the command is the same: a simple SSH remote port forwarding! © Antonio Mika</figcaption>
 </figure>
 
 After renting a new VPS (I'm personally a fan of Magalu Cloud, or Hetzner for servers outside of Brazil), and setting up an instance of sish through [Docker Compose](<https://en.wikipedia.org/wiki/Containerization_(computing)>) (which simplifies the deployment process a lot), I migrated all my Raspberry Pi services to that proxy. Of course, since "migrating" is just changing the SSH command to point to a different URL, as well as updating some DNS entries, it was a pretty simple process!

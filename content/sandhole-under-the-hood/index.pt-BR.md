@@ -1,7 +1,7 @@
 +++
 title = "Sandhole por debaixo dos panos"
 authors = ["Eric Rodrigues Pires"]
-description = "Uma longa investigação sobre como directionamento reverso de portas funciona no SSH; a princípio por diversão, e depois mergulhando de cabeça com Sandhole."
+description = "Uma longa investigação sobre como direcionamento reverso de portas funciona no SSH; a princípio por diversão, e depois mergulhando de cabeça com Sandhole."
 date = 2026-03-24
 taxonomies.tags = ["Sandhole", "hospedagem"]
 +++

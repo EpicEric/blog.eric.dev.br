@@ -1,12 +1,12 @@
 {
-  sources ? import ./npins,
+  inputs ? import ./.tack,
   system ? builtins.currentSystem,
-  pkgs ? import sources.nixpkgs { inherit system; },
+  pkgs ? import inputs.nixpkgs { inherit system; },
 }:
 let
-  inherit (pkgs) stdenv lib;
+  inherit (pkgs) stdenvNoCC lib;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   name = "blog-eric-dev-br";
 
   src = lib.fileset.toSource {
@@ -36,6 +36,6 @@ stdenv.mkDerivation {
   '';
 
   installPhase = ''
-    mv public $out
+    cp -r public/ $out
   '';
 }

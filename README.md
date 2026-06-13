@@ -8,7 +8,7 @@ My personal blog, built with Zola and Duckquill.
 zola serve
 ```
 
-## Build and deploy
+## Build
 
 ```bash
 nix-build
