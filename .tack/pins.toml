@@ -25,3 +25,7 @@
 [inputs.nixpkgs]
 url = "github:NixOS/nixpkgs/nixpkgs-unstable"
 type = "fetch"
+
+[inputs.now]
+url = "github:EpicEric/now"
+type = "fetch"

@@ -5,6 +5,7 @@
 }:
 pkgs.mkShell {
   packages = [
+    (import inputs.now { })
     pkgs.rsync
     pkgs.zola
   ];
