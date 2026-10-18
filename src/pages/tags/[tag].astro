@@ -1,0 +1,23 @@
+---
+import TagPage from '../../components/TagPage.astro';
+import { tagKeys, tagFor, type TagKey } from '../../data/tags';
+import { getPostsByTag } from '../../lib/posts';
+
+type Entry = { key: TagKey; posts: Awaited<ReturnType<typeof getPostsByTag>> };
+
+export async function getStaticPaths() {
+  const entries: Entry[] = [];
+  for (const key of tagKeys) {
+    const posts = await getPostsByTag('en', key);
+    if (posts.length > 0) entries.push({ key, posts });
+  }
+  return entries.map(({ key, posts }) => ({
+    params: { tag: tagFor(key, 'en').slug },
+    props: { tag: key, posts },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<TagPage tag={tag} posts={posts} locale="en" />

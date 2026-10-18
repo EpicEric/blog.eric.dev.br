@@ -1,0 +1,31 @@
+---
+import type { Locale } from '../data/site';
+import { tagFor, type TagKey } from '../data/tags';
+import { tagPath } from '../i18n/ui';
+
+interface Props {
+  tags: TagKey[];
+  locale: Locale;
+  label?: string;
+}
+
+const { tags, locale, label } = Astro.props;
+---
+
+<div class="tag-group">
+  {label && <span class="tag-group__label">{label}</span>}
+  <ul class="tag-list">
+    {
+      tags.map((tag) => {
+        const info = tagFor(tag, locale);
+        return (
+          <li>
+            <a class="tag" href={tagPath(locale, info.slug)}>
+              {info.label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</div>

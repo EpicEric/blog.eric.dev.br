@@ -1,0 +1,50 @@
+---
+import { site } from '../data/site';
+import type { Locale } from '../data/site';
+import { t } from '../i18n/ui';
+import SocialIcon from './SocialIcon.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const feed = locale === 'en' ? '/rss.xml' : `/${locale}/rss.xml`;
+const year = new Date().getFullYear();
+---
+
+<footer class="machine__base">
+  <div class="ports">
+    <span class="ports__label">{t(locale, 'footer.ports')}</span>
+    <ul class="ports__list">
+      {
+        site.socials.map((social) => (
+          <li>
+            <a
+              class="port"
+              href={social.href}
+              rel="noopener me"
+              target="_blank"
+            >
+              <SocialIcon name={social.key} size={16} />
+              <span>{social.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="colophon">
+    <p>
+      © {year} {site.author}.
+    </p>
+    <p class="colophon__meta">
+      <a href="https://astro.build" rel="noopener" target="_blank">{t(locale, 'footer.built')}</a>
+      <span aria-hidden="true">·</span>
+      <a href={feed}>{t(locale, 'rss.label')}</a>
+      <span aria-hidden="true">·</span>
+      <a href={site.url} rel="noopener me" target="_blank">{site.url.replace('https://', '')}</a>
+    </p>
+  </div>
+</footer>

@@ -1,9 +1,16 @@
+#! /usr/bin/env nix
+#! nix shell git+https://codeberg.org/now-runner/now --command now
 { runner, ... }:
 {
+  inherit (import ./.tack) nixpkgs;
+
   jobs = {
     build = {
       steps = [
-        (runner.steps.upload "blog" (import ./. { }))
+        (runner.steps.upload {
+          name = "blog";
+          deriv = import ./. { };
+        })
       ];
     };
 
@@ -20,9 +27,7 @@
             run = ''
               rsync --delete-after -acP $BLOG/ $SSH_HOST:www
             '';
-            path = [
-              pkgs.rsync
-            ];
+            path = [ pkgs.rsync ];
           }
         ];
       };

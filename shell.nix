@@ -5,8 +5,8 @@
 }:
 pkgs.mkShell {
   packages = [
+    pkgs.nodejs_24
     (import inputs.now { })
     pkgs.rsync
-    pkgs.zola
   ];
 }

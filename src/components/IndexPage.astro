@@ -1,0 +1,60 @@
+---
+import { site } from '../data/site';
+import type { Locale } from '../data/site';
+import { countLabel, t } from '../i18n/ui';
+import { getPosts } from '../lib/posts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const posts = await getPosts(locale);
+const alternatePath = locale === 'en' ? '/pt-BR/' : '/';
+const feed = locale === 'en' ? '/rss.xml' : `/${locale}/rss.xml`;
+---
+
+<BaseLayout
+  title={site.title[locale]}
+  description={site.intro[locale]}
+  locale={locale}
+  alternatePath={alternatePath}
+  section="index"
+  screenLabel={t(locale, 'index.status')}
+  screenMeta={countLabel(locale, posts.length)}
+>
+  <div class="page-intro">
+    <h1>{site.title[locale]}</h1>
+    <div class="page-intro__copy">
+      <p>{site.intro[locale]}</p>
+      <a class="feed-link" href={feed}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16" />
+          <circle cx="5" cy="19" r="1.4" fill="currentColor" stroke="none" />
+        </svg>
+        {t(locale, 'rss.label')}
+      </a>
+    </div>
+  </div>
+
+  <section class="directory" aria-labelledby="latest-heading">
+    <div class="section-head">
+      <h2 id="latest-heading">{t(locale, 'index.latest')}</h2>
+      <span>{countLabel(locale, posts.length)}</span>
+    </div>
+
+    {
+      posts.length > 0 ? (
+        <PostList posts={posts} locale={locale} />
+      ) : (
+        <p class="empty-state">{t(locale, 'index.empty')}</p>
+      )
+    }
+
+    <p class="end-mark">
+      <span>{t(locale, 'index.end')}</span>
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,52 @@
+---
+import type { Locale } from '../data/site';
+import { tagFor } from '../data/tags';
+import { countLabel, tagCountLabel, tagPath, t } from '../i18n/ui';
+import { getTagsWithPosts } from '../lib/posts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const entries = await getTagsWithPosts(locale);
+const alternatePath = locale === 'en' ? '/pt-BR/tags/' : '/tags/';
+---
+
+<BaseLayout
+  title={`${t(locale, 'tags.title')} · Epic Eric`}
+  description={t(locale, 'tags.intro')}
+  locale={locale}
+  alternatePath={alternatePath}
+  section="tags"
+  screenLabel={`${t(locale, 'tags.title')} · ${locale === 'en' ? 'EN' : 'PT-BR'}`}
+  screenMeta={tagCountLabel(locale, entries.length)}
+>
+  <header class="page-header">
+    <h1>{t(locale, 'tags.title')}</h1>
+    <p class="page-header__intro">{t(locale, 'tags.intro')}</p>
+  </header>
+
+  <ul class="tag-grid">
+    {
+      entries.map(({ key, posts }) => {
+        const tag = tagFor(key, locale);
+        return (
+          <li>
+            <a class="preset" href={tagPath(locale, tag.slug)}>
+              <span class="preset__top">
+                <span class="preset__count">{countLabel(locale, posts.length)}</span>
+              </span>
+              <span class="preset__name">{tag.label}</span>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+
+  <p class="end-mark">
+    <span>{t(locale, 'tags.end')}</span>
+  </p>
+</BaseLayout>

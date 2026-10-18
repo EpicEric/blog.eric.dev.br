@@ -1,0 +1,37 @@
+---
+import type { Locale } from '../data/site';
+import { formatDate, postPath } from '../i18n/ui';
+import type { Post } from '../lib/posts';
+import TagLinks from './TagLinks.astro';
+
+interface Props {
+  posts: Post[];
+  locale: Locale;
+}
+
+const { posts, locale } = Astro.props;
+---
+
+<ol class="post-list">
+  {
+    posts.map((post) => (
+      <li class="post-row">
+        <time class="post-row__date" datetime={post.data.date.toISOString()}>
+          {formatDate(post.data.date, locale)}
+        </time>
+        <div class="post-row__body">
+          <h3 class="post-row__title">
+            <a href={postPath(locale, post.data.translationKey)}>{post.data.title}</a>
+          </h3>
+          <p class="post-row__desc">{post.data.description}</p>
+          <TagLinks tags={post.data.tags} locale={locale} />
+        </div>
+        <span class="post-row__arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </span>
+      </li>
+    ))
+  }
+</ol>

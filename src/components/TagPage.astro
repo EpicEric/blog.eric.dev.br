@@ -1,0 +1,52 @@
+---
+import type { Locale } from '../data/site';
+import { tagFor, type TagKey } from '../data/tags';
+import { countLabel, tagPath, t } from '../i18n/ui';
+import type { Post } from '../lib/posts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from './PostList.astro';
+
+interface Props {
+  tag: TagKey;
+  posts: Post[];
+  locale: Locale;
+}
+
+const { tag, posts, locale } = Astro.props;
+const info = tagFor(tag, locale);
+const otherLocale: Locale = locale === 'en' ? 'pt-BR' : 'en';
+const alternatePath = tagPath(otherLocale, tagFor(tag, otherLocale).slug);
+const allTags = locale === 'en' ? '/tags/' : `/${locale}/tags/`;
+---
+
+<BaseLayout
+  title={`${info.label} · Epic Eric`}
+  description={info.description}
+  locale={locale}
+  alternatePath={alternatePath}
+  section="tags"
+  screenLabel={`${t(locale, 'nav.tags')} · ${info.label}`}
+  screenMeta={countLabel(locale, posts.length)}
+>
+  <header class="page-header page-header--tag">
+    <a class="back-link" href={allTags}>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M19 12H5M11 18l-6-6 6-6" />
+      </svg>
+      {t(locale, 'nav.tags')}
+    </a>
+    <h1>{info.label}</h1>
+    <p class="page-header__intro">{info.description}</p>
+  </header>
+
+  <section aria-labelledby="tag-entries">
+    <div class="section-head">
+      <h2 id="tag-entries">{t(locale, 'tag.list')}</h2>
+    </div>
+    <PostList posts={posts} locale={locale} />
+  </section>
+
+  <p class="end-mark">
+    <span>{t(locale, 'tags.end')}</span>
+  </p>
+</BaseLayout>

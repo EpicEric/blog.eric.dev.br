@@ -1,0 +1,39 @@
+---
+import type { Locale } from '../data/site';
+import { t } from '../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  alternatePath: string;
+}
+
+const { locale, alternatePath } = Astro.props;
+---
+
+<div class="lang-switch" role="group" aria-label={t(locale, 'language.label')}>
+  <span class="lang-switch__label" aria-hidden="true">{t(locale, 'language.label')}</span>
+
+  {
+    locale === 'en' ? (
+      <span class="lang-switch__key is-current" aria-current="true" lang="en" title={t('en', 'language.en')}>
+        EN
+      </span>
+    ) : (
+      <a class="lang-switch__key" href={alternatePath} hreflang="en" lang="en" title={t('en', 'language.en')}>
+        EN
+      </a>
+    )
+  }
+
+  {
+    locale === 'pt-BR' ? (
+      <span class="lang-switch__key is-current" aria-current="true" lang="pt-BR" title={t('pt-BR', 'language.pt')}>
+        PT
+      </span>
+    ) : (
+      <a class="lang-switch__key" href={alternatePath} hreflang="pt-BR" lang="pt-BR" title={t('pt-BR', 'language.pt')}>
+        PT
+      </a>
+    )
+  }
+</div>

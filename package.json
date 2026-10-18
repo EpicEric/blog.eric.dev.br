@@ -1,0 +1,37 @@
+{
+  "name": "blog.eric.dev.br",
+  "version": "2.0.0",
+  "description": "Epic Eric's personal technical blog",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://forgejo@git.eric.dev.br/EpicEric/blog.eric.dev.br.git"
+  },
+  "keywords": [],
+  "author": "Eric Rodrigues Pires",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@fontsource-variable/archivo": "^5.3.0",
+    "@fontsource-variable/literata": "^5.3.0",
+    "@fontsource/dejavu-mono": "^5.3.0",
+    "@shikijs/transformers": "^4.5.0",
+    "alpinejs": "^3.17.4",
+    "astro": "^7.4.0",
+    "simple-icons": "^16.35.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22.22.0"
+  }
+}

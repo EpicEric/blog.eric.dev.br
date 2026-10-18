@@ -1,3 +1,6 @@
-/.direnv/
-/public/
-/result
+.astro/
+.direnv/
+.impeccable/
+dist/
+node_modules/
+result

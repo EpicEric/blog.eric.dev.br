@@ -1,0 +1,69 @@
+---
+import type { Locale } from '../data/site';
+import { t } from '../i18n/ui';
+import LanguageSwitch from './LanguageSwitch.astro';
+import ThemeSwitch from './ThemeSwitch.astro';
+
+interface Props {
+  locale: Locale;
+  alternatePath: string;
+  section: 'index' | 'tags';
+}
+
+const { locale, alternatePath, section } = Astro.props;
+const home = locale === 'en' ? '/' : `/${locale}/`;
+const tags = locale === 'en' ? '/tags/' : `/${locale}/tags/`;
+const feed = locale === 'en' ? '/rss.xml' : `/${locale}/rss.xml`;
+---
+
+<header class="machine__bezel">
+  <a class="brand" href={home} aria-label={t(locale, 'nav.home')}>
+    <span class="brand__badge" aria-hidden="true">
+      <img src="/images/logo-square.png" width="36" height="36" />
+    </span>
+    <span class="brand__text">
+      <span class="brand__name">Epic Eric</span>
+      <span class="brand__model">{t(locale, 'site.model')}</span>
+    </span>
+  </a>
+
+  <nav class="controls" aria-label={t(locale, 'a11y.mainNav')}>
+    <a
+      class="key"
+      href={home}
+      aria-current={section === 'index' ? 'page' : undefined}
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      {t(locale, 'nav.index')}
+    </a>
+    <a
+      class="key"
+      href={tags}
+      aria-current={section === 'tags' ? 'page' : undefined}
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
+        </svg>
+      {t(locale, 'nav.tags')}
+    </a>
+    <a class="key key--feed" href={feed}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" aria-hidden="true" focusable="false">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        </svg>
+      {t(locale, 'nav.feed')}
+    </a>
+
+    <span class="controls__divider" aria-hidden="true"></span>
+
+    <span class="controls__switches">
+      <LanguageSwitch locale={locale} alternatePath={alternatePath} />
+      <ThemeSwitch
+        labelLight={t(locale, 'theme.toLight')}
+        labelDark={t(locale, 'theme.toDark')}
+      />
+    </span>
+  </nav>
+</header>

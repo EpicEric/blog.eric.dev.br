@@ -1,0 +1,177 @@
+---
+import { render } from 'astro:content';
+import { site } from '../data/site';
+import type { Locale } from '../data/site';
+import { formatDate, formatMachineDate, postPath, t } from '../i18n/ui';
+import { getPost, readingMinutes } from '../lib/posts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TagLinks from './TagLinks.astro';
+
+interface Props {
+  translationKey: string;
+  locale: Locale;
+}
+
+const { translationKey, locale } = Astro.props;
+const post = await getPost(locale, translationKey);
+
+if (!post) {
+  throw new Error(`Post not found: ${locale}/${translationKey}`);
+}
+
+const { Content, headings } = await render(post);
+const toc = headings.filter((heading) => heading.depth === 2);
+const alternatePath = postPath(locale === 'en' ? 'pt-BR' : 'en', post.data.translationKey);
+const minutes = readingMinutes(post);
+const published = post.data.date.toISOString();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: published,
+  inLanguage: locale,
+  author: {
+    '@type': 'Person',
+    name: site.author,
+    url: site.mainSite,
+  },
+  mainEntityOfPage: new URL(postPath(locale, post.data.translationKey), site.url).href,
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} · ${site.name}`}
+  description={post.data.description}
+  locale={locale}
+  alternatePath={alternatePath}
+  section="index"
+  screenLabel={`${t(locale, 'post.published')} · ${formatMachineDate(post.data.date)}`}
+  screenMeta={`${minutes} ${t(locale, 'post.reading')}`}
+  ogType="article"
+  publishedTime={published}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <article class="post">
+    <header class="post-header">
+      <div class="post-meta">
+        <span>
+          {t(locale, 'post.published')}{' '}
+          <time datetime={published}>{formatDate(post.data.date, locale)}</time>
+        </span>
+        <span aria-hidden="true">/</span>
+        <span>{minutes} {t(locale, 'post.reading')}</span>
+      </div>
+
+      <h1>{post.data.title}</h1>
+      <p class="post-deck">{post.data.description}</p>
+
+      <TagLinks
+        tags={post.data.tags}
+        locale={locale}
+        label={t(locale, 'post.filed')}
+      />
+
+      {
+        toc.length > 1 && (
+          <details class="toc">
+            <summary>
+              <span>{t(locale, 'post.contents')}</span>
+              <span class="toc__count">
+                {toc.length} {t(locale, 'post.sections')}
+              </span>
+            </summary>
+            <ol>
+              {toc.map((heading) => (
+                <li>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+              ))}
+            </ol>
+          </details>
+        )
+      }
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <footer class="post-footer">
+      <a class="back-link" href={locale === 'en' ? '/' : `/${locale}/`}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M11 18l-6-6 6-6" />
+        </svg>
+        {t(locale, 'post.back')}
+      </a>
+      <p class="end-mark">
+        <span>{t(locale, 'post.end')}</span>
+      </p>
+    </footer>
+  </article>
+
+  <script is:inline>
+    (() => {
+      const root = document.documentElement;
+      const copyLabel = root.dataset.copy || 'Copy';
+      const copiedLabel = root.dataset.copied || 'Copied';
+      const copyAria = root.dataset.copyLabel || 'Copy code block';
+
+      document.querySelectorAll('.prose img').forEach((img) => {
+        img.loading = 'lazy';
+        img.decoding = 'async';
+      });
+
+      document.querySelectorAll('.prose pre.astro-code').forEach((pre) => {
+        if (pre.closest('.code-frame')) return;
+
+        const frame = document.createElement('div');
+        frame.className = 'code-frame';
+
+        const bar = document.createElement('div');
+        bar.className = 'code-bar';
+
+        const name = document.createElement('span');
+        name.className = 'code-bar__name';
+        const lang = pre.getAttribute('data-language') || 'code';
+        const title = pre.getAttribute('data-title');
+        name.textContent = title ? `${lang} / ${title}` : lang;
+
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'code-copy';
+        button.textContent = copyLabel;
+        button.setAttribute('aria-label', copyAria);
+
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(pre.innerText);
+            button.textContent = copiedLabel;
+            button.classList.add('is-copied');
+            window.setTimeout(() => {
+              button.textContent = copyLabel;
+              button.classList.remove('is-copied');
+            }, 1600);
+          } catch {
+            button.textContent = copyLabel;
+          }
+        });
+
+        bar.append(name, button);
+        frame.append(bar);
+        pre.replaceWith(frame);
+        frame.append(pre);
+      });
+    })();
+  </script>
+
+  {
+    post.data.interactive && (
+      <script>
+        import Alpine from 'alpinejs';
+        Alpine.start();
+      </script>
+    )
+  }
+</BaseLayout>

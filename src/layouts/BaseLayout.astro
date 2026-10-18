@@ -1,0 +1,183 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/literata/index.css';
+import '@fontsource-variable/literata/wght-italic.css';
+import '@fontsource/dejavu-mono/latin-400.css';
+import '@fontsource/dejavu-mono/latin-400-italic.css';
+import '@fontsource/dejavu-mono/latin-700.css';
+import '../styles/global.css';
+
+import { site } from '../data/site';
+import type { Locale } from '../data/site';
+import { t } from '../i18n/ui';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  alternatePath: string;
+  section: 'index' | 'tags';
+  screenLabel: string;
+  screenMeta: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
+}
+
+const {
+  title,
+  description,
+  locale,
+  alternatePath,
+  section,
+  screenLabel,
+  screenMeta,
+  ogType = 'website',
+  publishedTime,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const alternate = new URL(alternatePath, Astro.site ?? site.url).href;
+const feed = locale === 'en' ? '/rss.xml' : `/${locale}/rss.xml`;
+const feedTitle = `${t(locale, 'feed.title')} — RSS`;
+const ogLocale = locale === 'en' ? 'en_US' : 'pt_BR';
+const otherLocale: Locale = locale === 'en' ? 'pt-BR' : 'en';
+---
+
+<!doctype html>
+<html lang={locale} data-copy-label={t(locale, 'code.copyLabel')} data-copy={t(locale, 'code.copy')} data-copied={t(locale, 'code.copied')}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="alternate" hreflang={locale} href={canonical} />
+    <link rel="alternate" hreflang={otherLocale} href={alternate} />
+    <link rel="alternate" hreflang="x-default" href={locale === 'en' ? canonical : alternate} />
+    <link rel="alternate" type="application/rss+xml" title={feedTitle} href={feed} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={locale === 'en' ? 'pt_BR' : 'en_US'} />
+    <meta name="author" content={site.author} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <meta name="theme-color" id="theme-color" content="#e6d8f4" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+
+    <script is:inline>
+      (() => {
+        const key = 'epic-eric-theme';
+        let theme;
+        try {
+          theme = localStorage.getItem(key);
+        } catch {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">{t(locale, 'a11y.skip')}</a>
+
+    <div class="desk">
+      <div class="machine">
+
+        <SiteHeader locale={locale} alternatePath={alternatePath} section={section} />
+
+        <div class="machine__well">
+          <div class="screen">
+            <div class="screen__scanlines" aria-hidden="true"></div>
+            <span class="screen__sweep" aria-hidden="true"></span>
+            <div class="screen__vignette" aria-hidden="true"></div>
+
+            <div class="screen__inner">
+              <div class="status-bar">
+                <span>{screenLabel}</span>
+                <span class="status-bar__right">
+                  <span class="signal" aria-hidden="true">
+                    <i></i><i></i><i></i>
+                  </span>
+                  <span>{screenMeta}</span>
+                </span>
+              </div>
+
+              <main id="main-content" tabindex="-1">
+                <slot />
+              </main>
+            </div>
+          </div>
+        </div>
+
+
+        <SiteFooter locale={locale} />
+      </div>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const key = 'epic-eric-theme';
+        const media = window.matchMedia('(prefers-color-scheme: dark)');
+        const button = document.querySelector('[data-theme-toggle]');
+        const meta = document.getElementById('theme-color');
+
+        const paint = () => {
+          const dark = root.dataset.theme === 'dark';
+          if (button) {
+            const label = dark ? button.dataset.labelLight : button.dataset.labelDark;
+            button.setAttribute('aria-pressed', String(dark));
+            if (label) {
+              button.setAttribute('aria-label', label);
+              button.setAttribute('title', label);
+            }
+          }
+          if (meta) meta.setAttribute('content', dark ? '#120a1d' : '#e6d8f4');
+        };
+
+        paint();
+
+        button?.addEventListener('click', () => {
+          const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          root.dataset.theme = next;
+          try {
+            localStorage.setItem(key, next);
+          } catch {}
+          paint();
+        });
+
+        media.addEventListener?.('change', (event) => {
+          let stored;
+          try {
+            stored = localStorage.getItem(key);
+          } catch {}
+          if (stored) return;
+          root.dataset.theme = event.matches ? 'dark' : 'light';
+          paint();
+        });
+
+        window.addEventListener('storage', (event) => {
+          if (event.key !== key) return;
+          if (event.newValue === 'light' || event.newValue === 'dark') {
+            root.dataset.theme = event.newValue;
+            paint();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
