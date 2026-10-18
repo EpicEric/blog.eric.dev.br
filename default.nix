@@ -23,9 +23,7 @@ stdenvNoCC.mkDerivation {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [
-    pkgs.zola
-  ];
+  nativeBuildInputs = [ pkgs.zola ];
 
   buildPhase = ''
     runHook preBuild
@@ -36,6 +34,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   installPhase = ''
+    mkdir -p $out
     cp -r public/ $out
   '';
 }

@@ -1,9 +1,25 @@
+#! /usr/bin/env nix
+#! nix shell git+https://codeberg.org/now-runner/now --command now
 { runner, ... }:
 {
   jobs = {
+    serve = { pkgs, ... }: {
+      steps = [
+        {
+          path = [ pkgs.zola ];
+          run = ''
+            zola serve
+          '';
+        }
+      ];
+    };
+
     build = {
       steps = [
-        (runner.steps.upload "blog" (import ./. { }))
+        (runner.steps.upload {
+          name = "blog";
+          deriv = import ./. { };
+        })
       ];
     };
 

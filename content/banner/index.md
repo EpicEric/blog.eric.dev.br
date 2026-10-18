@@ -1,7 +1,7 @@
 +++
 title = "Eric Rodrigues Pires"
 template = "page.html"
-date = 2026-02-14
+# date = 2026-02-14
 +++
 
 {% crt() %}
