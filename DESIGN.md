@@ -47,7 +47,7 @@ Body and muted text clear 4.5:1 on the screen in both themes. Case muted text cl
 - The screen is one large flat surface with a status bar, a main reading region, and generous internal padding. There are no nested cards; post entries are ruled rows.
 - Tag presets are large keycap surfaces, not cards with icons. Counts sit at the top right, names at the bottom left.
 - Posts use a single 760px reading column inside the screen. The title and metadata are part of the machine readout; the body is the paper inside it.
-- Long posts get a native `<details>` contents panel. Its list uses balanced CSS columns, so entries read down each column (1/4, 2/5, 3/6 for six sections) rather than across rows; numbers and link text share one size.
+- Long posts get a native `<details>` contents panel in Archivo, with sentence-case labels. Its list uses balanced CSS columns, so entries read down each column (1/4, 2/5, 3/6 for six sections) rather than across rows; numbers and link text share one size. Tags and machine readouts remain uppercase; navigation buttons, dates, and metadata are sentence case.
 - The footer is the machine base: external ports, copyright, Astro/RSS/website links.
 
 ### Chrome details

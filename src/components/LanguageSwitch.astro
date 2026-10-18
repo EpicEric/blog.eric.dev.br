@@ -16,11 +16,11 @@ const { locale, alternatePath } = Astro.props;
   {
     locale === 'en' ? (
       <span class="lang-switch__key is-current" aria-current="true" lang="en" title={t('en', 'language.en')}>
-        EN
+        en
       </span>
     ) : (
       <a class="lang-switch__key" href={alternatePath} hreflang="en" lang="en" title={t('en', 'language.en')}>
-        EN
+        en
       </a>
     )
   }
@@ -28,11 +28,11 @@ const { locale, alternatePath } = Astro.props;
   {
     locale === 'pt-BR' ? (
       <span class="lang-switch__key is-current" aria-current="true" lang="pt-BR" title={t('pt-BR', 'language.pt')}>
-        PT
+        pt
       </span>
     ) : (
       <a class="lang-switch__key" href={alternatePath} hreflang="pt-BR" lang="pt-BR" title={t('pt-BR', 'language.pt')}>
-        PT
+        pt
       </a>
     )
   }
