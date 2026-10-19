@@ -10,7 +10,7 @@ tags: [nix, rust, testing]
 <div class="crt-splash">
 <pre aria-hidden="true">         .-----------.
         (    OK! =D   )
-         `-----. ,---´
+         '-----. ,---'
                |/
                '
     .----------------------.

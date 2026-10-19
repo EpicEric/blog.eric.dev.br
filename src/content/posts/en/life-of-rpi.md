@@ -20,7 +20,7 @@ tags: []
 |            HDMI   ||  _    |       |
 |           ______  || / \   |       |
 |() __     | n  n | || |_|() |_______|
-`——|__|————|______|————|_|——————————´</pre>
+'——|__|————|______|————|_|——————————'</pre>
 </div>
 
 ## RC car
@@ -32,3 +32,5 @@ tags: []
 ## Regular homelab server
 
 ## Android phone automator
+
+<span class="cursor">█</span>

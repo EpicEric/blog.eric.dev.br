@@ -9,7 +9,6 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const feed = locale === 'en' ? '/rss.xml' : `/${locale}/rss.xml`;
 const year = new Date().getFullYear();
 ---
 
@@ -37,12 +36,10 @@ const year = new Date().getFullYear();
 
   <div class="colophon">
     <p>
-      © {year} {site.author}.
+      © {year === 2026 ? year : `2026—${year}`} {site.author}.
     </p>
     <p class="colophon__meta">
-      <a href="https://astro.build" rel="noopener" target="_blank">{t(locale, 'footer.built')}</a>
-      <span aria-hidden="true">·</span>
-      <a href={feed}>{t(locale, 'rss.label')}</a>
+      <a href="https://git.eric.dev.br/EpicEric/blog.eric.dev.br" rel="noopener" target="_blank">{t(locale, 'footer.built')}</a>
       <span aria-hidden="true">·</span>
       <a href={site.url} rel="noopener me" target="_blank">{site.url.replace('https://', '')}</a>
     </p>

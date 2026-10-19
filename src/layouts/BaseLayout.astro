@@ -101,28 +101,16 @@ const otherLocale: Locale = locale === 'en' ? 'pt-BR' : 'en';
 
         <div class="machine__well">
           <div class="screen">
-            <div class="screen__scanlines" aria-hidden="true"></div>
             <span class="screen__sweep" aria-hidden="true"></span>
             <div class="screen__vignette" aria-hidden="true"></div>
 
             <div class="screen__inner">
-              <div class="status-bar">
-                <span>{screenLabel}</span>
-                <span class="status-bar__right">
-                  <span class="signal" aria-hidden="true">
-                    <i></i><i></i><i></i>
-                  </span>
-                  <span>{screenMeta}</span>
-                </span>
-              </div>
-
               <main id="main-content" tabindex="-1">
                 <slot />
               </main>
             </div>
           </div>
         </div>
-
 
         <SiteFooter locale={locale} />
       </div>

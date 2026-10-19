@@ -26,7 +26,6 @@ export const site = {
     { key: 'github', label: 'GitHub', href: 'https://github.com/EpicEric' },
     { key: 'codeberg', label: 'Codeberg', href: 'https://codeberg.org/EpicEric9' },
     { key: 'mastodon', label: 'Mastodon', href: 'https://mastodon.xyz/@epiceric' },
-    { key: 'kofi', label: 'Ko-fi', href: 'https://ko-fi.com/epiceric' },
   ],
 } as const;
 

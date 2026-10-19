@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import { site } from '../../data/site';
-import { postPath, t } from '../../i18n/ui';
+import { t } from '../../i18n/ui';
+import { feedItem } from '../../lib/feed';
 import { getPosts } from '../../lib/posts';
 
 export async function GET(context: { site?: URL }) {
@@ -11,12 +12,7 @@ export async function GET(context: { site?: URL }) {
     title: t('pt-BR', 'feed.title'),
     description: t('pt-BR', 'feed.description'),
     site: base,
-    items: posts.map((post) => ({
-      title: post.data.title,
-      description: post.data.description,
-      pubDate: post.data.date,
-      link: new URL(postPath('pt-BR', post.data.translationKey), base).href,
-    })),
+    items: posts.map((post) => feedItem(post, 'pt-BR', base)),
     customData: `<language>${t('pt-BR', 'feed.language')}</language>`,
   });
 }

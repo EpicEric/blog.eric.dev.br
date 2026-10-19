@@ -12,7 +12,7 @@ tags: [sandhole, self-hosting]
 |    ||==|              S a n d h o l e               ___ ___|_|
 |____||  |    ____     .---------------.     ____    |  _| . | |
 /::::/|__|===[...°]===| git.eric.dev.br |===[...°]===|_| |  _|_|
-                       `---------------´                 |_|</pre>
+                       '---------------'                 |_|</pre>
 </div>
 
 This is a long technical post, going over what led me to embrace self-hosting with unconventional reverse proxies.
@@ -243,4 +243,4 @@ Now, I'll admit it's not perfect. I still catch bugs every now and then, and it 
 
 Suffice it to say, I learned a lot about SSH and reverse proxies in general. It's quite fun seeing how this remote forwarding feature has evolved into its own niche ecosystem &ndash; ngrok, Serveo, localhost.run, sish &ndash;, which Sandhole is now a part of.
 
-I could go over the details of how SSH remote forwarding _actually_ works under the hood, but I think I'll leave it for now, as this post is already quite long. If you're interested in an even more technical follow-up post, let me know [on Mastodon](https://mastodon.xyz/@epiceric) or [by e-mail](mailto:sandhole@eric.dev.br). Or if you're interested in running your own Forgejo instance behind Sandhole, what about checking out [this post](/self-hosting-forgejo-with-sandhole/)?█
+I could go over the details of how SSH remote forwarding _actually_ works under the hood, but I think I'll leave it for now, as this post is already quite long. If you're interested in an even more technical follow-up post, let me know [on Mastodon](https://mastodon.xyz/@epiceric) or [by e-mail](mailto:sandhole@eric.dev.br). Or if you're interested in running your own Forgejo instance behind Sandhole, what about checking out [this post](/self-hosting-forgejo-with-sandhole/)?<span class="cursor">█</span>

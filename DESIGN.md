@@ -42,7 +42,7 @@ Body and muted text clear 4.5:1 on the screen in both themes. Case muted text cl
 
 ### Composition
 
-- The machine is `min(1180px, calc(100% - clamp(18px, 5vw, 64px)))` inside a full-height desk field.
+- The machine is `min(1180px, calc(100% - clamp(18px, 5vw, 64px)))` on a flat desk field. Case, screen, well, and keycaps use flat fills; depth comes from borders and shadows, not colored glows.
 - The bezel holds the brand and a single control rail: Home, Tags, RSS, EN | PT, theme.
 - The screen is one large flat surface with a status bar, a main reading region, and generous internal padding. There are no nested cards; post entries are ruled rows.
 - Tag presets are large keycap surfaces, not cards with icons. Counts sit at the top right, names at the bottom left.
@@ -52,8 +52,8 @@ Body and muted text clear 4.5:1 on the screen in both themes. Case muted text cl
 
 ### Chrome details
 
-- Screen: 3px horizontal scanlines under content, a soft edge vignette, a one-shot sweep on load, and a faint phosphor glow on headings in dark mode.
-- Case: layered inset/outset shadows, a subtle plastic grain, a thick screen well, and a top-lit gradient. No decorative screws or fake status LEDs remain.
+- Screen: flat fill, 3px horizontal scanlines under content, a soft edge vignette, and a low-opacity one-shot sweep on load. The phosphor text glow is reserved for the page title and the ASCII CRT art.
+- Case: a flat lavender/aubergine shell with layered inset/outset shadows and a subtle plastic grain. No top-lit gradient, ambient glow, decorative screws, or fake status LEDs remain.
 - Controls: keycap bevels, pressed states, a physical theme rocker with exactly centered sun and moon icons, and EN always on the left of PT.
 - Browser surfaces: themed selection, caret, scrollbar, focus rings, underlined prose links, and a visible skip link.
 
