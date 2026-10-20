@@ -22,8 +22,6 @@ const feed = locale === 'en' ? '/rss.xml' : `/${locale}/rss.xml`;
   locale={locale}
   alternatePath={alternatePath}
   section="index"
-  screenLabel={t(locale, 'index.status')}
-  screenMeta={countLabel(locale, posts.length)}
 >
   <div class="page-intro">
     <h1>{site.title[locale]}</h1>

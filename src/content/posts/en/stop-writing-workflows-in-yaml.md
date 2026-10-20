@@ -18,7 +18,7 @@ tags: [nix, rust, now]
  \_____________________________________________/</pre>
 </div>
 
-> Note: Parts of `now` were written with help from LLMs.
+> Disclaimer: `now` includes minor contributions from LLMs, all of them thoroughly reviewed by a human.
 
 If you've had to mess with GitHub Actions, you've probably been there, too. You write (or more likely, you copy-paste and adjust) a workflow, you push it to a branch, and you hope that it runs like you would expect. If you're lucky, you'll get a mistake that's easy to fix, like a missing variable in your environment. If not, well... there goes the rest of your workday.
 

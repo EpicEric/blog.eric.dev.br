@@ -19,8 +19,6 @@ interface Props {
   locale: Locale;
   alternatePath: string;
   section: 'index' | 'tags';
-  screenLabel: string;
-  screenMeta: string;
   ogType?: 'website' | 'article';
   publishedTime?: string;
 }
@@ -31,8 +29,6 @@ const {
   locale,
   alternatePath,
   section,
-  screenLabel,
-  screenMeta,
   ogType = 'website',
   publishedTime,
 } = Astro.props;
