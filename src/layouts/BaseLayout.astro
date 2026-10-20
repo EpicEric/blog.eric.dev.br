@@ -45,7 +45,7 @@ const ogLocale = locale === 'en' ? 'en_US' : 'pt_BR';
 const otherLocale: Locale = locale === 'en' ? 'pt-BR' : 'en';
 ---
 
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang={locale} data-copy-label={t(locale, 'code.copyLabel')} data-copy={t(locale, 'code.copy')} data-copied={t(locale, 'code.copied')}>
   <head>
     <meta charset="utf-8" />
@@ -105,7 +105,7 @@ const otherLocale: Locale = locale === 'en' ? 'pt-BR' : 'en';
             <div class="screen__vignette" aria-hidden="true"></div>
 
             <div class="screen__inner">
-              <main id="main-content" tabindex="-1">
+              <main id="main-content">
                 <slot />
               </main>
             </div>

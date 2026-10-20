@@ -3,7 +3,7 @@
 My personal blog, built with Astro.
 
 > [!Note]
-> LLM disclaimer: The frontend of this repo was mostly created with a large language model. However, all content in the blog was hand-written.
+> LLM disclaimer: The design of the frontend was mostly created with a large language model. However, all content in the blog was hand-written.
 
 ## Development server
 

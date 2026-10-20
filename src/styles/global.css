@@ -1521,11 +1521,16 @@
   .prose pre.astro-code {
     background: var(--code-bg) !important;
     border-color: var(--screen-rule);
+    overflow-x: scroll;
   }
 
   .prose .astro-code,
   .prose .astro-code span {
     color: var(--shiki-light);
+  }
+
+  .prose pre.astro-code code {
+     width: max-content;
   }
 
   [data-theme='dark'] .prose .astro-code,
@@ -1809,20 +1814,6 @@
 
     .brand {
       gap: 0.55rem;
-    }
-
-    .brand__badge {
-      width: 36px;
-      height: 36px;
-      font-size: 0.92rem;
-    }
-
-    .brand__name {
-      font-size: 0.92rem;
-    }
-
-    .brand__model {
-      font-size: 0.5rem;
     }
 
     .key {

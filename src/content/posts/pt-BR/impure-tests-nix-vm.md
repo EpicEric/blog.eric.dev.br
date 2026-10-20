@@ -214,13 +214,13 @@ Tudo certo até aqui... mas o que nós colocaremos em `checks`? Bem, já que tiv
 
 ```nix title="flake.nix"
 {
-checks.${system} = {
-  mydns-tests = craneLib.cargoNextest (
-    commonArgs
-    // {
-      inherit cargoArtifacts;
-    }
-  );
+  checks.${system} = {
+    mydns-tests = craneLib.cargoNextest (
+      commonArgs
+      // {
+        inherit cargoArtifacts;
+      }
+    );
 }
 ```
 
@@ -276,68 +276,68 @@ Felizmente, nós podemos usar máquinas de NixOS via QEMU para rodar nossos test
 
 ```nix title="flake.nix"
 {
-checks.${system} = {
-  mydns-tests =
-    let
-      nextest-archive = craneLib.mkCargoDerivation (
-        commonArgs
-        // {
-          inherit cargoArtifacts;
-          doCheck = false;
-          pname = "mydns-nextest-archive";
-          nativeBuildInputs = (commonArgs.nativeBuildInputs or [ ]) ++ [ pkgs.cargo-nextest ];
-          buildPhaseCargoCommand = ''
-            cargo nextest archive --archive-format tar-zst --archive-file archive.tar.zst
-          '';
-          installPhaseCommand = ''
-            mkdir -p $out
-            cp archive.tar.zst $out
-          '';
-        }
-      );
-    in
-    pkgs.testers.runNixOSTest {
-      name = "mydns-nextest";
-      nodes = {
-        machine =
-          { ... }:
-          {
-            virtualisation.diskSize = 4096;
-            networking.hosts = {
-              "52.0.56.137" = [ "52-0-56-137.nip.io" ];
-            };
-            systemd.services.cargo-nextest = {
-              description = "Integration Tests for mydns";
-              wantedBy = [ "multi-user.target" ];
-              after = [ "network-online.target" ];
-              wants = [ "network-online.target" ];
-              path = [
-                pkgs.cargo
-                pkgs.cargo-nextest
-              ];
-              script = ''
-                cp -r ${src}/* .
-                cargo nextest run \
-                  --archive-file ${nextest-archive}/archive.tar.zst \
-                  --workspace-remap .
-              '';
-              serviceConfig = {
-                StateDirectory = "cargo-nextest";
-                StateDirectoryMode = "0750";
-                WorkingDirectory = "/var/lib/cargo-nextest";
-                Type = "oneshot";
-                RemainAfterExit = "yes";
-                Restart = "no";
+  checks.${system} = {
+    mydns-tests =
+      let
+        nextest-archive = craneLib.mkCargoDerivation (
+          commonArgs
+          // {
+            inherit cargoArtifacts;
+            doCheck = false;
+            pname = "mydns-nextest-archive";
+            nativeBuildInputs = (commonArgs.nativeBuildInputs or [ ]) ++ [ pkgs.cargo-nextest ];
+            buildPhaseCargoCommand = ''
+              cargo nextest archive --archive-format tar-zst --archive-file archive.tar.zst
+            '';
+            installPhaseCommand = ''
+              mkdir -p $out
+              cp archive.tar.zst $out
+            '';
+          }
+        );
+      in
+      pkgs.testers.runNixOSTest {
+        name = "mydns-nextest";
+        nodes = {
+          machine =
+            { ... }:
+            {
+              virtualisation.diskSize = 4096;
+              networking.hosts = {
+                "52.0.56.137" = [ "52-0-56-137.nip.io" ];
+              };
+              systemd.services.cargo-nextest = {
+                description = "Integration Tests for mydns";
+                wantedBy = [ "multi-user.target" ];
+                after = [ "network-online.target" ];
+                wants = [ "network-online.target" ];
+                path = [
+                  pkgs.cargo
+                  pkgs.cargo-nextest
+                ];
+                script = ''
+                  cp -r ${src}/* .
+                  cargo nextest run \
+                    --archive-file ${nextest-archive}/archive.tar.zst \
+                    --workspace-remap .
+                '';
+                serviceConfig = {
+                  StateDirectory = "cargo-nextest";
+                  StateDirectoryMode = "0750";
+                  WorkingDirectory = "/var/lib/cargo-nextest";
+                  Type = "oneshot";
+                  RemainAfterExit = "yes";
+                  Restart = "no";
+                };
               };
             };
-          };
+        };
+        testScript = ''
+          machine.start()
+          machine.wait_for_unit("cargo-nextest.service")
+        '';
       };
-      testScript = ''
-        machine.start()
-        machine.wait_for_unit("cargo-nextest.service")
-      '';
-    };
-};
+  };
 }
 ```
 
@@ -366,40 +366,41 @@ let
     }
   );
 in
-# ...
-{}
+{
+  # ...
+}
 ```
 
 2. Depois, nós criamos um serviço do systemd `oneshot` que recupera o código-fonte em Rust (necessário para a funcionalidade de arquivamento do nextest) e roda os testes. Nós precisamos copiar os arquivos ao invés de criar um link, já que `cargo nextest` precisa de permissões de escrita ao diretório `target/` no workspace do Cargo (e o `/nix/store` é apenas para leitura). Fora isso, é um serviço systemd que vai direto ao ponto. Eu adicionei comentários abaixo às partes mais importantes.
 
 ```nix
 {
-systemd.services.cargo-nextest = {
-  description = "Integration Tests for mydns";
-  wantedBy = [ "multi-user.target" ]; # Faz com que este serviço seja parte do processo de boot normal
-  after = [ "network-online.target" ]; # Aguarda até termos acesso à rede
-  wants = [ "network-online.target" ]; # Igual ao comentário acima
-  path = [
-    pkgs.cargo
-    pkgs.cargo-nextest
-    # Adicione quaisquer outras dependências ao PATH
-  ];
-  # Desempacote os arquivos fonte e rode cargo nextest
-  script = ''
-    cp -r ${src}/* .
-    cargo nextest run \
-      --archive-file ${nextest-archive}/archive.tar.zst \
-      --workspace-remap .
-  '';
-  serviceConfig = {
-    StateDirectory = "cargo-nextest"; # Crie o diretório /var/lib/cargo-nextest
-    StateDirectoryMode = "0750";
-    WorkingDirectory = "/var/lib/cargo-nextest"; # Rode nosso script dentro do 'state directory'
-    Type = "oneshot";
-    RemainAfterExit = "yes";
-    Restart = "no";
+  systemd.services.cargo-nextest = {
+    description = "Integration Tests for mydns";
+    wantedBy = [ "multi-user.target" ]; # Faz com que este serviço seja parte do processo de boot normal
+    after = [ "network-online.target" ]; # Aguarda até termos acesso à rede
+    wants = [ "network-online.target" ]; # Igual ao comentário acima
+    path = [
+      pkgs.cargo
+      pkgs.cargo-nextest
+      # Adicione quaisquer outras dependências ao PATH
+    ];
+    # Desempacote os arquivos fonte e rode cargo nextest
+    script = ''
+      cp -r ${src}/* .
+      cargo nextest run \
+        --archive-file ${nextest-archive}/archive.tar.zst \
+        --workspace-remap .
+    '';
+    serviceConfig = {
+      StateDirectory = "cargo-nextest"; # Crie o diretório /var/lib/cargo-nextest
+      StateDirectoryMode = "0750";
+      WorkingDirectory = "/var/lib/cargo-nextest"; # Rode nosso script dentro do 'state directory'
+      Type = "oneshot";
+      RemainAfterExit = "yes";
+      Restart = "no";
+    };
   };
-};
 }
 ```
 
@@ -407,29 +408,29 @@ systemd.services.cargo-nextest = {
 
 ```nix
 {
-pkgs.testers.runNixOSTest {
-  name = "mydns-nextest";
-  nodes = {
-    machine =
-      { ... }:
-      {
-        # Aumente ou diminua o espaço de disco conforme a necessidade
-        virtualisation.diskSize = 4096;
-        # Adicione configurações adicionais, por exemplo, hosts que devem ser resolvidos
-        networking.hosts = {
-          "52.0.56.137" = [ "52-0-56-137.nip.io" ];
+  pkgs.testers.runNixOSTest {
+    name = "mydns-nextest";
+    nodes = {
+      machine =
+        { ... }:
+        {
+          # Aumente ou diminua o espaço de disco conforme a necessidade
+          virtualisation.diskSize = 4096;
+          # Adicione configurações adicionais, por exemplo, hosts que devem ser resolvidos
+          networking.hosts = {
+            "52.0.56.137" = [ "52-0-56-137.nip.io" ];
+          };
+          systemd.services.cargo-nextest = {
+            # -snip-
+          };
         };
-        systemd.services.cargo-nextest = {
-          # -snip-
-        };
-      };
+    };
+    # Nosso teste do NixOS consiste em esperar que nosso serviço conclua com sucesso
+    testScript = ''
+      machine.start()
+      machine.wait_for_unit("cargo-nextest.service")
+    '';
   };
-  # Nosso teste do NixOS consiste em esperar que nosso serviço conclua com sucesso
-  testScript = ''
-    machine.start()
-    machine.wait_for_unit("cargo-nextest.service")
-  '';
-};
 }
 ```
 

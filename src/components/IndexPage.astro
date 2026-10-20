@@ -29,13 +29,6 @@ const feed = locale === 'en' ? '/rss.xml' : `/${locale}/rss.xml`;
     <h1>{site.title[locale]}</h1>
     <div class="page-intro__copy">
       <p>{site.intro[locale]}</p>
-      <a class="feed-link" href={feed}>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16" />
-          <circle cx="5" cy="19" r="1.4" fill="currentColor" stroke="none" />
-        </svg>
-        {t(locale, 'rss.label')}
-      </a>
     </div>
   </div>
 
