@@ -22,10 +22,10 @@
           {
             env = {
               BLOG = runner.download "blog";
-              SSH_HOST = runner.secret "SSH_HOST";
+              BLOG_HOST = runner.secret "BLOG_HOST";
             };
             run = ''
-              rsync --delete-after -acP $BLOG/ $SSH_HOST:www
+              rsync --delete-after -acP $BLOG/ $BLOG_HOST:www
             '';
             path = [ pkgs.rsync ];
           }

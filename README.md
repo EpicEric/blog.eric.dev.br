@@ -20,5 +20,5 @@ nix-build
 ## Publish
 
 ```bash
-SSH_HOST=... now run publish
+BLOG_HOST=... now run publish
 ```
