@@ -22,7 +22,7 @@ tags: [nix, rust, now]
 
 If you've had to mess with GitHub Actions, you've probably been there, too. You write (or more likely, you copy-paste and adjust) a workflow, you push it to a branch, and you hope that it runs like you would expect. If you're lucky, you'll get a mistake that's easy to fix, like a missing variable in your environment. If not, well... there goes the rest of your workday.
 
-The fact that we have free CI runners at our disposal has been a great boom for many open-source projects, but there's nothing quite as painful as the slow iteration cycle of getting things to work just right. Among the many usual complaints, the lack of tooling to validate workflows locally or how you're [prone to supply chain attacks from malicious actions](https://cybersecuritynews.com/ghostaction-supply-chain-campaign/) are some of the few levied against it.
+The fact that we have free CI runners at our disposal has been a great boon for many open-source projects, but there's nothing quite as painful as the slow iteration cycle of getting things to work just right. Among the many usual complaints, the lack of tooling to validate workflows locally or how you're [prone to supply chain attacks from malicious actions](https://cybersecuritynews.com/ghostaction-supply-chain-campaign/) are some of the few levied against it.
 
 But my main gripe with GitHub Actions would be the fact that you declare them in pure YAML.
 
@@ -192,7 +192,7 @@ This is just scratching the surface; `now` is packed with useful features. To na
 - As a powerful and extensible command runner, it even supports running development dependencies like PostgreSQL [with its services add-on](https://now.dev.br/services/).
 - You can easily invoke `now` [in your own GitHub Actions](https://now.dev.br/cookbook/#using-in-github-actions), making it trivial to hook it up to your existing CI.
 
-One caveat is that `now` relies on a "bring your own runners" approach, requiring an SSH connection to them &ndash; which isn't really compatible with the GitHub Actions runners model. Which means that it's not a one-to-one replacement (unless you figure something out with [upterm](https://github.com/owenthereal/action-upterm/), in which case, let me know!). But for my use-cases, it's definitely enough to fill the gaps that GHA creates.
+One caveat is that `now` relies on a "bring your own runners" approach, requiring an SSH connection to them &ndash; which isn't really compatible with the GitHub Actions runners model. Which means that it's not a one-to-one replacement (~~unless you figure something out with [upterm](https://github.com/owenthereal/action-upterm/), in which case, let me know!~~ although with [Tailscale SSH](https://now.dev.br/cookbook/#__tabbed_1_2), you can get pretty good results at the loss of some ergonomics). But for my use-cases, it's definitely enough to fill the gaps that GHA creates.
 
 Despite the slow startup times due to Nix evaluation and derivation building, it's still quite a good replacement for tools like [`just`](https://github.com/casey/just) as well, especially if you need a bunch of tools pinned down to reproducible versions. Here are some things I already use `now` for:
 
